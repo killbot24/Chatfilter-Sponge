@@ -7,15 +7,15 @@
             "killbot24"
         ],
         "dependencies": [
-            "spongeapi@7.2.0"
+            "spongeapi@7.3.0"
         ],
         "requiredMods": [
-            "spongeapi@7.2.0"
+            "spongeapi@7.3.0"
         ]
     },
     {
         "modid": "chat",
-        "name": "sponage-chatfilter",
-        "version": "1.0-SNAPSHOT"
+        "name": "Chatfilter-Sponage",
+        "version": "2.0"
     }
 ]

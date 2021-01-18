@@ -23,7 +23,7 @@ public class Logic extends Chat {
     private String[] curse={"fuck","shit","cunt"};
     private String[] muted;
     public boolean Checkchat(Player player,String message,String type) {
-
+    String clearmessage=message;
 
         Boolean prevent = false;
       message=message.toLowerCase();
@@ -42,15 +42,21 @@ public class Logic extends Chat {
         if (prevent==false){
        // Sponge.getServer().getBroadcastChannel().send(Text.of(blocked[0] + " blocked"));
                    blocked= dat.getBlocked();
-          message=  StringUtils.deleteWhitespace(message);
+
+
+            for (int i = 0; i < Chat.Whitelist.length; i++) {//Removes whitelisted words
+          message=  message.replaceAll(Chat.Whitelist[i],"#"); }
+            message=  StringUtils.deleteWhitespace(message);
+
             for (int i = 0; i < blocked.length; i++) {
               //  getLogger().info(blocked[i]+" "+message);
                 if (message.contains(blocked[i])) {
+
                     prevent = true;
 
                     try {
                         lan.muted(player); //message to player
-                        lan.staff(player, message, blocked[i],type);      // sends warning to staff
+                        lan.staff(player, clearmessage, blocked[i],type);      // sends warning to staff
                         store.addmute(player); //mutes player
                         store.report(player.getName(),blocked[i],message,type);
                         dat.getLogger().info("[Chat Filter] "+player.getName()+" Has been muted for attempting to say : "+message);

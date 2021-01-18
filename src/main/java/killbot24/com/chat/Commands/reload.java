@@ -1,9 +1,6 @@
 package killbot24.com.chat.Commands;
 
-import killbot24.com.chat.Chat;
-import killbot24.com.chat.Logic;
-import killbot24.com.chat.config;
-import killbot24.com.chat.data;
+import killbot24.com.chat.*;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -44,21 +41,24 @@ public class reload  extends Chat implements CommandExecutor {
             }
         };
         //  List<String> a = rootNode.getNode("Blocked").getList(stringTransformer);
-        String a = (String) config.getNode("Blocked").getValue();
-        //  Blocked=  new String[a.size()];
-        // Blocked= a.toArray(this.Blocked);
-
-
+        String blacklistinput = (String) config.getNode("Blocked").getValue();
+        String whitelistinput = (String) config.getNode("Whitelist").getValue();
 
         /* delimiter */
         String delimiter = ",";
-        String b= a.replace("[","");
+        String b= blacklistinput.replace("[","");
         String c =b.replace("]","");
         String d=c.replace(" ","");
         /* given string will be split by the argument delimiter provided. */
-        String[] tempArray = d.split(delimiter);
-       // getLogger().info(tempArray[1]);
-        dat.setBlocked(tempArray);
+        dat.setBlocked(d.split(delimiter));
+        /* delimiter */
+        String aa= whitelistinput.replace("[","");
+        String cc =aa.replace("]","");
+        String dd=cc.replace(" ","");
+        /* given string will be split by the argument delimiter provided. */
+        Chat.Whitelist = dd.split(delimiter);
+        datastorage store = new datastorage();
+        store.Readmute();
         getLogger().info("Reloaded");
         return CommandResult.success();
 

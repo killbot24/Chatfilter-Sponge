@@ -21,6 +21,7 @@ import static sun.audio.AudioPlayer.player;
 public class datastorage extends Chat{
     data dat=new data();
     private List<?> lmutes;
+    private String[] mutes;
     public void unmutec(final String suspect) throws IOException {
         final File file = new File(getfile().getAbsoluteFile(), "Active-mutes.yml");
         final FileWriter fw = new FileWriter(file);
@@ -84,14 +85,11 @@ public class datastorage extends Chat{
         }
         else {
             try {
-                String[] mutes;
-
-
                 lmutes = Files.readAllLines(file.toPath());
                mutes = new String[lmutes.size()];
                 mutes = (String[]) lmutes.toArray(mutes);
                 dat.setmutes(mutes);
-                dat.setMuteplayers(lmutes);
+                dat.setMuteplayers(lmutes);//Un need
             }
             catch (Exception b) {
                 this.getLogger().info("[Chat-Filter] " + b.getStackTrace());
@@ -114,26 +112,31 @@ public class datastorage extends Chat{
     }
 
     public void unmute(final String player, final Player sender) throws IOException {
-        final File file = new File(getfile().getAbsoluteFile(), "Active-mutes.yml");
-        final PrintWriter out = new PrintWriter(new FileWriter(file, true));
-        final Scanner myReader = new Scanner(file);
-        final FileWriter fw = new FileWriter(file);
-        final BufferedWriter bw = new BufferedWriter(fw);
-        try {
-            final List<?> inputa = Files.readAllLines(file.toPath());
-            inputa.remove(player);
-            for (int i = 0; i < inputa.size(); ++i) {
-                bw.write(inputa.get(i).toString());
-            }
-        }
-        catch (Exception e) {
-            this.getLogger().info("[Warning] Issue editing file in unmute");
-        }
+        Readmute();
+       // Chat.getLogger().info(lmutes.size()+" List size");
 
-        Text message = Text.of(TextColors.RED, TranslatableText.builder(player+" is unmuted"));
-        sender.sendMessage(message);
-        getLogger().info( player + " is unmuted");
-        this.Readmute();
+
+            if(lmutes.contains(player)==false){
+                Text message = Text.of(TextColors.RED, TranslatableText.builder(player+" is not muted"));
+                sender.sendMessage(message);
+
+
+            }else {
+                final File file = new File(getfile().getAbsoluteFile(), "Active-mutes.yml");
+                final FileWriter fw = new FileWriter(file);
+                final BufferedWriter bw = new BufferedWriter(fw);
+
+            lmutes.remove(player);
+            for (int i = 0; i < lmutes.size(); ++i) {//Todo fix this clearing
+               // Chat.getLogger().info(lmutes.get(i)+" List index ");
+                fw.write(lmutes.get(i).toString());
+
+            }
+            Text message = Text.of(TextColors.RED, TranslatableText.builder(player+" is un muted"));
+            sender.sendMessage(message);
+            getLogger().info( player + " is unmuted");
+                this.Readmute();}
+
     }
 
     public void report(final String player, final String trigger, final String warning, final String Type) throws IOException {

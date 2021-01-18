@@ -26,8 +26,8 @@ public class unmute implements CommandExecutor {
     public CommandResult execute(CommandSource commandSource, CommandContext commandContext) throws CommandException {
 
 
-            Optional<User> user = commandContext.<User>getOne("player");
-            String player = user.get().getName();
+            Optional<User> user = commandContext.<User>getOne("Player");
+            String player = String.valueOf(user.get());// gets player
         if (commandSource instanceof ConsoleSource) {
             try {
                 store.unmutec(player);
@@ -36,11 +36,11 @@ public class unmute implements CommandExecutor {
                 e.printStackTrace();
             }
         } if (commandSource instanceof Player) {
-            Player players = (Player) commandSource;
+            Player sender = (Player) commandSource;
             try {
 
-                store.unmute(player, players);
-                store.logunmute(players.getName(),player);
+                store.unmute(player, sender);
+                store.logunmute(sender.getName(),player);
 
             } catch (IOException e) {
                 e.printStackTrace();

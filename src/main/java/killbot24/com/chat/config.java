@@ -54,10 +54,14 @@ public class config {
         List list = new ArrayList<>();
 
         // check integrity
-        list.add("nigger");list.add("fag");
+        list.add("bob");list.add("john");
 
         config.getNode("Blocked").setComment("Blocked words");
         Utils.ensureString(config.getNode("Blocked"),list.toString());
+
+        config.getNode("Whitelist").setComment("Whitelisted words");
+        Utils.ensureString(config.getNode("Whitelist"),list.toString());
+
         config.getNode("Mute").setComment("The message displayed to players on mute");
         Utils.ensureString(config.getNode("Mute"),"Mute message");
 

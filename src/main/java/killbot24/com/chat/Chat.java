@@ -42,11 +42,12 @@ import org.spongepowered.api.text.Text;
 public class Chat {
     private static Chat plugin;
     private static File rootDir;
-    private String[] Blocked;
+    public static String[] Blocked;
+    public static String[] Whitelist;
     private String[] mutes;
     private ConfigurationNode rootNode;
     data dat= new data();
-
+    //Todo at some point.....This is a mess redo it
 
     @Inject
     public Logger logger;
@@ -57,9 +58,8 @@ public class Chat {
     public void onInit(GameInitializationEvent event) throws IOException
     {
         plugin = this;
-
+        this.logger.info("Chatfilter Starting");
         rootDir = new File(defaultConfigDir, "chat-filter");
-// Try loading some configuration settings for a welcome message to players
         // when they join!
         Sponge.getEventManager().registerListeners(this, new playerchatListener());
         //  Lang.init(rootDir);
@@ -83,9 +83,6 @@ public class Chat {
        // getLogger().info(message);
         dat.setMutemessage(message);// mute message
 
-
-      //  this.logger.info(Blocked[0].toString()+" What ever array is. and lenght "+Blocked.length);
-
         Function<Object, String> stringTransformer = new Function<Object,String>() {
             public String apply(Object input) {
                 if (input instanceof String) {
@@ -96,21 +93,30 @@ public class Chat {
             }
         };
         //  List<String> a = rootNode.getNode("Blocked").getList(stringTransformer);
-        String a = (String) config.getNode("Blocked").getValue();
+        String blacklistinput = (String) config.getNode("Blocked").getValue();
+        String whitelistinput = (String) config.getNode("Whitelist").getValue();
 
-
+        dat.setlogger(logger);
 
         /* delimiter */
         String delimiter = ",";
-           String b= a.replace("[","");
-       String c =b.replace("]","");
-        String d=c.replace(" ","");
-        /* given string will be split by the argument delimiter provided. */
-        String[] tempArray = d.split(delimiter);
-       // getLogger().info(tempArray[1]);
-        dat.setlogger(logger);
-        dat.setBlocked(tempArray);
-        CommandSpec myCommandSpec = CommandSpec.builder()
+           String b= blacklistinput.replace("[","");
+              String c =b.replace("]","");
+                 String d=c.replace(" ","");
+                    /* given string will be split by the argument delimiter provided. */
+                   dat.setBlocked(d.split(delimiter));
+                            /* delimiter */
+                            String aa= whitelistinput.replace("[","");
+                            String cc =aa.replace("]","");
+                            String dd=cc.replace(" ","");
+                            /* given string will be split by the argument delimiter provided. */
+                           this.Whitelist = dd.split(delimiter);
+
+
+
+
+
+        CommandSpec reload = CommandSpec.builder()
                 .description(Text.of("reloads chat filter"))
                 .permission("ct.reload")
                 .executor(new reload())
@@ -126,7 +132,7 @@ public class Chat {
                 .description(Text.of("unmutes player"))
                 .permission("ct.base")
                 .arguments(
-                        GenericArguments.onlyOne(GenericArguments.user(Text.of("player"))))
+                        GenericArguments.onlyOne(GenericArguments.string(Text.of("Player"))))
                 .executor(new unmute())
                 .build();
 
@@ -141,12 +147,12 @@ public class Chat {
         CommandSpec Main = CommandSpec.builder()
                 .description(Text.of("All chat tools commands"))
                 .child(unmute,"unmute") // links to command unmute
-                .child(myCommandSpec,"reload")
+                .child(reload,"reload")
                 .child(list,"list")
                 .child(check,"check")
                 .build();
 
-        Sponge.getCommandManager().register(plugin, myCommandSpec, "filterreload");
+        Sponge.getCommandManager().register(plugin, reload, "filterreload");
         Sponge.getCommandManager().register(plugin, unmute, "filterunmute");
         Sponge.getCommandManager().register(plugin, Main, "filter");
         Sponge.getCommandManager().register(plugin, list, "filterlist");
