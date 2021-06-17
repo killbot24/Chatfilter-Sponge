@@ -9,6 +9,7 @@ import org.spongepowered.api.text.format.TextColors;
 import java.io.*;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -17,16 +18,13 @@ import java.util.Scanner;
  * Created by tjbur on 06/06/2020.
  */
 public class FileEditor extends Chat {
-    private List<?> lmutes;
     private String[] mutes;
-    public void unmutec(final String suspect) throws IOException {
-        final File file = new File(getfile().getAbsoluteFile(), "Active-mutes.yml");
-        final FileWriter fw = new FileWriter(file);
+    public void removeMutesConsole(final String suspect) throws IOException {
+        final FileWriter fw = new FileWriter(Chat.mutesFile);
         final BufferedWriter bw = new BufferedWriter(fw);
         try {
-            final List<?> inputa = Files.readAllLines(file.toPath());
+            final List<?> inputa = Files.readAllLines(Chat.mutesFile.toPath());
             inputa.remove(suspect);
-
             for (int i = 0; i < inputa.size(); ++i) {
                 bw.write(inputa.get(i).toString());
             }
@@ -34,26 +32,21 @@ public class FileEditor extends Chat {
         catch (Exception e) {
             getLogger().info("[Warning] Issue editing file in unmute");
         }
-        this.getLogger().info(suspect + " is unmuted");
+        this.getLogger().info(suspect + " is no longer muted");
         this.Readmute();
     }
 
-    public void readreportc(final String suspect) throws FileNotFoundException {
-        final File file = new File(getfile().getAbsoluteFile() + "/Warnings", suspect + ".yml");
+    public List displayInfractions( File file) throws FileNotFoundException {
         final Scanner myReader = new Scanner(file);
+        List<?> infraction = null;
         try {
-            final List<?> infraction = Files.readAllLines(file.toPath());
-            String[] user = new String[infraction.size()];
-            user = infraction.toArray(user);
-            this.getLogger().info("Player's infraction");
-            for (int i = 0; i < user.length; ++i) {
-                getLogger().info( user[i]);
-            }
+            infraction = Files.readAllLines(file.toPath());
             myReader.close();
         }
         catch (Exception e) {
             getLogger().info("No record of player");
         }
+        return infraction;
     }
 
     public void Readmute() {
@@ -63,7 +56,7 @@ public class FileEditor extends Chat {
             file.createNewFile();
         }
         catch (IOException e3) {
-            getLogger().info("Error in createing active mute file");
+            getLogger().info("Error in creating active mute file");
         }
         try {
             myReader = new Scanner(file);
@@ -76,15 +69,17 @@ public class FileEditor extends Chat {
                 file.createNewFile();
             }
             catch (Exception e2) {
-                getLogger().info("Error in createing active mute file");
+                getLogger().info("Error in creating active mute file");
                 e2.printStackTrace();
             }
         }
         else {
             try {
+                List<?> lmutes;
                 lmutes = Files.readAllLines(file.toPath());
-               mutes = new String[lmutes.size()];
+                mutes = new String[lmutes.size()];
                 mutes = (String[]) lmutes.toArray(mutes);
+                Chat.mutes=mutes;
                 //Todo change how mutes are stored
             }
             catch (Exception b) {
@@ -103,7 +98,7 @@ public class FileEditor extends Chat {
             this.Readmute();
         }
         catch (Exception e) {
-            this.getLogger().info("[Warning] Issue writeing file");
+            this.getLogger().info("[Warning] Issue writing file");
         }
     }
 
@@ -111,8 +106,8 @@ public class FileEditor extends Chat {
         Readmute();
        // Chat.getLogger().info(lmutes.size()+" List size");
 
-
-            if(lmutes.contains(player)==false){
+        if(Arrays.asList(Chat.mutes).contains(player)){
+            //Todo Move to notify
                 Text message = Text.of(TextColors.RED, TranslatableText.builder(player+" is not muted"));
                 sender.sendMessage(message);
 
@@ -122,15 +117,16 @@ public class FileEditor extends Chat {
                 final FileWriter fw = new FileWriter(file);
                 final BufferedWriter bw = new BufferedWriter(fw);
 
-            lmutes.remove(player);
-            for (int i = 0; i < lmutes.size(); ++i) {//Todo fix this clearing
+                 Arrays.asList(Chat.mutes).remove(player);
+            for (int i = 0; i < Chat.mutes.length; ++i) {
                // Chat.getLogger().info(lmutes.get(i)+" List index ");
-                fw.write(lmutes.get(i).toString());
+                fw.write(Chat.mutes[i]);
 
             }
+            //Todo Move to notify
             Text message = Text.of(TextColors.RED, TranslatableText.builder(player+" is un muted"));
             sender.sendMessage(message);
-            getLogger().info( player + " is unmuted");
+            getLogger().info( player + " is no longer muted");
                 this.Readmute();}
 
     }
@@ -159,31 +155,6 @@ public class FileEditor extends Chat {
             }
         }
     }
-
-    public void readreport(final String suspect, final Player sender) throws IOException {
-        final File file = new File(getfile().getAbsoluteFile() + "/Warnings", suspect + ".yml");
-        final Scanner myReader = new Scanner(file);
-        try {
-            final List<?> infraction = Files.readAllLines(file.toPath());   // reads file
-            String[] user = new String[infraction.size()];
-            user = infraction.toArray(user);
-         //   sender.sendMessage(TextColors.GOLD+"Player's infraction");
-            Text messagea = Text.of(TextColors.RED, TranslatableText.builder("Player's infraction"));
-            sender.sendMessage(messagea);
-            for (int i = 0; i < user.length; ++i) {
-          //      sender.sendMessage(TextColors.GRAY + user[i]);
-                Text message = Text.of(TextColors.RED, TranslatableText.builder(user[i]));
-                sender.sendMessage(message);
-            }
-            myReader.close();
-        }
-        catch (Exception e) {
-            Text message = Text.of(TextColors.RED, TranslatableText.builder("No record of player"));
-            sender.sendMessage(message);
-
-        }
-    }
-
     public void createfolder() {
         final File warningfolder = new File(getfile().getAbsoluteFile(), "Warnings");
         if (!warningfolder.exists()) {
@@ -203,12 +174,12 @@ public class FileEditor extends Chat {
                 e1.printStackTrace();
             }}
         try {
-            out.write("\n"+timeStamp+" "+ player +" unmuted "+mute+ "\n");
+            out.write("\n"+timeStamp+" "+ player +" unmute "+mute+ "\n");
             out.close();
 
         }
         catch (Exception e) {
-            this.getLogger().info("[Warning] Issue writeing file");
+            this.getLogger().info("[Warning] Issue writing file");
         }
     }
 }

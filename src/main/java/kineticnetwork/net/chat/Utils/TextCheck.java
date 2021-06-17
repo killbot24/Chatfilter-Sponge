@@ -20,7 +20,6 @@ public class TextCheck {
             Iterator hmIterator = Chat.Blacklisted.entrySet().iterator();
             while (hmIterator.hasNext()) {
                 Map.Entry mapElement = (Map.Entry) hmIterator.next();
-                Chat.getLogger().info(" "+mapElement.getKey());
                 if (sepword[i].contains((CharSequence) mapElement.getKey())) {
 
                     reports.report(player.getName(), mapElement.getKey().toString(),  source,input, mapElement.getValue().toString());// adds report

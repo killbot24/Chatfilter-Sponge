@@ -27,7 +27,7 @@ public class unmute implements CommandExecutor {
             String player = String.valueOf(user.get());// gets player
         if (commandSource instanceof ConsoleSource) {
             try {
-                store.unmutec(player);
+                store.removeMutesConsole(player);
                 store.logunmute("console",player);
             } catch (IOException e) {
                 e.printStackTrace();

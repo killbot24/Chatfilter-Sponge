@@ -27,7 +27,7 @@ public class check implements CommandExecutor {
         Optional<User> user = commandContext.<User>getOne("player");
         if (commandSource instanceof ConsoleSource) {
             try {
-                store.readreportc(user.get().getName());
+                store.displayInfractions(user.get().getName());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

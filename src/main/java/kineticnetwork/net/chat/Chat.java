@@ -16,6 +16,7 @@ import org.spongepowered.api.plugin.Plugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.spongepowered.api.config.ConfigDir;
@@ -37,7 +38,7 @@ public class Chat {
     public static String URL;
     public ConfigurationNode rootNode;
     public static String Prefix= "[Chatfilter]";
-
+    public static File mutesFile = new File(Chat.getInstance().getfile().getAbsoluteFile(), "Active-mutes.yml");
     @Inject
     public Logger logger;
     @Inject
