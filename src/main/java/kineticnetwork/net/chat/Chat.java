@@ -16,7 +16,6 @@ import org.spongepowered.api.plugin.Plugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.spongepowered.api.config.ConfigDir;
@@ -38,7 +37,6 @@ public class Chat {
     public static String URL;
     public ConfigurationNode rootNode;
     public static String Prefix= "[Chatfilter]";
-    public static File mutesFile = new File(Chat.getInstance().getfile().getAbsoluteFile(), "Active-mutes.yml");
     @Inject
     public Logger logger;
     @Inject
@@ -56,7 +54,7 @@ public class Chat {
         this.logger.info( Prefix+" Done!");
     }
     @Listener
-    public void onServerStart(GameStartedServerEvent event) {
+    public void onServerStart(GameStartedServerEvent event) throws IOException {
         config.load();// loads config
         RegisterCommands register =new RegisterCommands();
         GetItems words =new GetItems();
@@ -65,7 +63,7 @@ public class Chat {
            //Register Commands
            register.registerCommands();
         FileEditor files=new FileEditor();
-        files.Readmute();
+        files.reloadMutes();
         this.logger.info(Prefix+ "Ah another fine day,Chatfilter is ready to work!");
     }
 

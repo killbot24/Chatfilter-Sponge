@@ -19,31 +19,28 @@ import java.util.Optional;
 public class unmute implements CommandExecutor {
 
     FileEditor store = new FileEditor();
+
     @Override
     public CommandResult execute(CommandSource commandSource, CommandContext commandContext) throws CommandException {
 
 
-            Optional<User> user = commandContext.<User>getOne("Player");
-            String player = String.valueOf(user.get());// gets player
-        if (commandSource instanceof ConsoleSource) {
-            try {
-                store.removeMutesConsole(player);
-                store.logunmute("console",player);
-            } catch (IOException e) {
-                e.printStackTrace();
+        Optional<User> user = commandContext.<User>getOne("Player");
+        String player = String.valueOf(user.get());// gets player
+        try {
+            if (commandSource instanceof ConsoleSource) {
+                store.unmutePlayer(player, null);
+                store.logunmute("console", player);
             }
-        } if (commandSource instanceof Player) {
-            Player sender = (Player) commandSource;
-            try {
-
-                store.unmute(player, sender);
-                store.logunmute(sender.getName(),player);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }}
+            if (commandSource instanceof Player) {
+                Player sender = (Player) commandSource;
+                store.unmutePlayer(player, sender);
+                store.logunmute(sender.getName(), player);
+            }
 
 
-        return CommandResult.success();
+            return CommandResult.success();
+        } catch (Exception e) {
+        }
+        return null;
     }
 }

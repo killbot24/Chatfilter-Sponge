@@ -1,6 +1,9 @@
 package kineticnetwork.net.chat.Commands;
 
+import kineticnetwork.net.chat.Chat;
 import kineticnetwork.net.chat.Files.FileEditor;
+import kineticnetwork.net.chat.Files.FilePrep;
+import kineticnetwork.net.chat.Notify;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -13,6 +16,7 @@ import org.spongepowered.api.event.filter.cause.Root;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,24 +25,25 @@ import java.util.Optional;
 public class check implements CommandExecutor {
 
     FileEditor store = new FileEditor();
+    FilePrep Fp = new FilePrep();
+    Notify notify=new Notify();
     @Override
-    public CommandResult execute(@Root CommandSource commandSource,CommandContext commandContext) throws CommandException {
-
+    public CommandResult execute(@Root CommandSource commandSource, CommandContext commandContext) throws CommandException {
+        List infractions = null;
         Optional<User> user = commandContext.<User>getOne("player");
+        try {
+            infractions = store.getInfractions(user.get().getName()); //Gets infractions
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (commandSource instanceof ConsoleSource) {
-            try {
-                store.displayInfractions(user.get().getName());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }  if (commandSource instanceof Player) {
-            Player players = (Player) commandSource;
+            notify.listInfractionsConsole(infractions, (user.get().getName()));
 
-            try {
-                store.readreport(user.get().getName(), players);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        }
+        if (commandSource instanceof Player) {
+            Player player = (Player) commandSource;
+            notify.listInfractionsPlayer(infractions, player, user.get().getName());
+
         }
         return CommandResult.success();
     }

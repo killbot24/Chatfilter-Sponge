@@ -9,6 +9,7 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 
+import java.io.IOException;
 import java.util.function.Function;
 
 /**
@@ -19,19 +20,13 @@ public class reload  extends Chat implements CommandExecutor {
     private String[] Blocked;
     @Override
     public CommandResult execute(CommandSource commandSource, CommandContext commandContext) throws CommandException {
-        Boolean bla=true;// to stop error
+        Boolean bla = true;// to stop error
         config.load();
 
 
+        String message = config.getNode("Mute").getValue().toString();
 
-
-        String message= config.getNode("Mute").getValue().toString();
-       // getLogger().info(message);
-       // dat.setMutemessage(message);
-
-        //  this.logger.info(Blocked[0].toString()+" What ever array is. and lenght "+Blocked.length);
-
-        Function<Object, String> stringTransformer = new Function<Object,String>() {
+        Function<Object, String> stringTransformer = new Function<Object, String>() {
             public String apply(Object input) {
                 if (input instanceof String) {
                     return (String) input;
@@ -46,13 +41,17 @@ public class reload  extends Chat implements CommandExecutor {
 
         /* delimiter */
         String delimiter = ",";
-        String b= blacklistinput.replace("[","");
-        String c =b.replace("]","");
-        String d=c.replace(" ","");
+        String b = blacklistinput.replace("[", "");
+        String c = b.replace("]", "");
+        String d = c.replace(" ", "");
         /* given string will be split by the argument delimiter provided. */
-       // dat.setBlocked(d.split(delimiter));
+        // dat.setBlocked(d.split(delimiter));
         FileEditor store = new FileEditor();
-        store.Readmute();
+        try {
+            store.reloadMutes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         getLogger().info("Reloaded");
         return CommandResult.success();
 
