@@ -15,7 +15,7 @@ public class GetItems {
             for (int i=0;i<split.length;i++){//Take config split by , add into list
                 String[] item =split[i].split(":");
                 Chat.Blacklisted.put(item[0],item[1]);
-                Chat.getLogger().info(Chat.getInstance().Prefix+" "+item[0]+" "+item[1]);
+                Chat.getLogger().info(Chat.getInstance().Prefix+" "+item[0]+","+item[1]);
             }
         }catch (Exception e){
            Chat.getLogger().info(Chat.getInstance().Prefix+" Issue in formatting of config "+e.getMessage());
