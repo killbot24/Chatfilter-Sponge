@@ -23,6 +23,10 @@ public class FilePrep {
         File file = new File(Chat.getInstance().getfile().getAbsoluteFile() + "Active-mutes.yml");
         return file;
     }
+    public File getFlagFile() {
+        File file = new File(Chat.getInstance().getfile().getAbsoluteFile() + "Flaged.yml");
+        return file;
+    }
 
     public List<String> getPlayerList() { // lists active mutes to staff on login
         return Arrays.asList(Chat.mutes);

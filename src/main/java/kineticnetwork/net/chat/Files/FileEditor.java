@@ -57,6 +57,17 @@ public class FileEditor extends Chat {
             this.getLogger().info("[Warning] Issue writing file");
         }
     }
+    public void flagPlayer(Player player) throws IOException {
+        File file = fp.getFlagFile();
+        final PrintWriter out = new PrintWriter(new FileWriter(file, true));
+        try {
+            out.write("\n" + player.getName() + "\n");
+            out.close();
+            this.reloadMutes();
+        } catch (Exception e) {
+            this.getLogger().info("[Warning] Issue writing file");
+        }
+    }
 
     public void unmutePlayer(String player, Player Staff) throws IOException {
         reloadMutes();
