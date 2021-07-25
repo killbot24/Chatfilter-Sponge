@@ -34,6 +34,7 @@ public class Chat {
     public static File rootDir;
     public static Map<String, String> Blacklisted = new HashMap<String, String>();
     public static String[] mutes;
+    public static String[] Watched;
     public static String URL;
     public ConfigurationNode rootNode;
     public static String Prefix= "[Chatfilter]";
