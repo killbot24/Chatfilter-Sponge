@@ -15,6 +15,7 @@ import org.spongepowered.api.text.TranslatableText;
 import org.spongepowered.api.text.format.TextColors;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Locale;
 
 
@@ -24,20 +25,22 @@ import java.util.Locale;
 public class onPlayerChat {
 
     TextCheck check = new TextCheck();
-
+    Notify not = new Notify();
 
     @Listener
     public void onChat(MessageChannelEvent.Chat event, @Root Player player) throws IOException {
-      String  message  = event.getRawMessage().toPlain();
+        String message = event.getRawMessage().toPlain();
+        if (Arrays.asList(Chat.mutes).contains(player.getName())) {
+            event.setMessageCancelled(true);
+            not.imformPlayerIsMuteda(player);
 
-       if (check.checkmessage(message,player,"Chat","null")){// if checkchat finds word blacklisted
-          event.setMessageCancelled(true);
+        }
 
-       }
+        if (check.checkmessage(message, player, "Chat", "null")) {// if checkchat finds word blacklisted
+            event.setMessageCancelled(true);
+
+        }
     }
-
-
-
 
 
 }

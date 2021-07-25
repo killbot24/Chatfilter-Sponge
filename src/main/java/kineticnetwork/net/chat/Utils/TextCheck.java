@@ -26,18 +26,15 @@ public class TextCheck {
             while (hmIterator.hasNext()) {
                 Map.Entry mapElement = (Map.Entry)hmIterator.next();
                 if (sepword[i].contains((CharSequence) mapElement.getKey())){
-                    if (source!="Chat"){
-                        Chat.getLogger().info("test3");
+                    if (source!="Chat"){ // source is not chat
                         //  ChatFilter.getInstance().getLogger().info("Hit check");
                         mutePlayer(player, mapElement.getKey().toString(),mapElement.getValue().toString(),source,extra,input);
                         return true;
                     }
-                    if (sepword[i].equals(mapElement.getKey())){ // word is by it self blocked use method1
-                        Chat.getLogger().info("test2");
+                    if (sepword[i].equals(mapElement.getKey())){ // 100% is blacklisted
                         mutePlayer(player, mapElement.getKey().toString(),mapElement.getValue().toString(),source,extra,input);
                         return true;
-                    }else{
-                        Chat.getLogger().info("test");
+                    }else{// Maybe...
                         possibleflag(player, mapElement.getKey().toString(),mapElement.getValue().toString(),source,extra,input);
                         return true;
                     }
@@ -54,15 +51,15 @@ public class TextCheck {
     }
     public boolean mutePlayer(Player player, String key, String value, String source, String extra, String input) throws IOException {
         reports.report(player.getName(), key, input, source, value);// adds report
-        //   addMute.addMute(player);// mutes player
+        reports.mutePlayer(player);// mutes player
         notify.imformPlayerIsMuted(player, value);// sends mute message
-        //  notfiy.staff(player, input, key,value,source,extra,true);
+        notify.imformStaff(player,input,key,"Chat",value);
         return true;
     }
     public boolean possibleflag(Player player, String key, String value, String source, String extra, String input) throws IOException { //Used for chat if word is contained with in another word
         reports.report(player.getName(),key, input, source, value);// adds report
-
-      //   notfiy.staffpossibleflag(player, input, key,value,source,extra,false);
+        reports.flagPlayer(player);
+        notify.imformStaffPossibleflag(player,input,key,"Chat",value);
         return true;
     }
     }
