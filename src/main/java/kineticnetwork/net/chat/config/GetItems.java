@@ -9,7 +9,9 @@ public class GetItems {
         String input = String.valueOf(config.getNode("Blocked").getValue());
         input=input.replace("[","");
         input=input.replace("]","");
+        input=input.replace(" ","");
         String[] split=input.split(",");
+
 
         try{ //Todo this needs to split up the string into list
             for (int i=0;i<split.length;i++){//Take config split by , add into list
