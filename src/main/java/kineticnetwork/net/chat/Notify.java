@@ -33,10 +33,12 @@ public class Notify extends Chat {
 
     //Tell Staff
     public void imformStaff(Player player, String message, String blocked, String type, String reason) {
-        if (type!="Chat"){
+        if (type=="Anvil"){
+            Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.RED, "Chat Filter", TextColors.DARK_GRAY, "]- ", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to name a item: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
+            Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
 
         }
-        else  {
+        if (type=="Chat") {
             Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.RED, "Chat Filter", TextColors.DARK_GRAY, "]- ", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to say: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
             Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
         }
@@ -69,7 +71,7 @@ public class Notify extends Chat {
     }
 
     public void imformStaffAnvil(Player player, String message) {
-        Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.AQUA, "Chat Filter", TextColors.DARK_GRAY, "]- ", TextColors.DARK_GRAY, "[", TextColors.AQUA, "Anvil Alert", TextColors.DARK_GRAY, "]- ", TextColors.WHITE, player.getName(), "[", TextColors.DARK_GREEN, "Message", TextColors.DARK_GRAY, "]-", TranslatableText.builder(message).toText());
+        Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.RED, "Chat Filter", TextColors.DARK_GRAY, "]- ", TextColors.DARK_GRAY, "\n[", TextColors.RED, "Anvil Alert", TextColors.DARK_GRAY, "]- ", TextColors.GRAY, player.getName(), TextColors.DARK_GRAY," [", TextColors.RED, "Message", TextColors.DARK_GRAY, "]-",TextColors.GRAY, TranslatableText.builder(message).toText());
         // set text for message
         Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
     }
