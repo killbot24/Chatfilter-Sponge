@@ -5,6 +5,7 @@ import kineticnetwork.net.chat.Commands.*;
 import kineticnetwork.net.chat.Files.FileEditor;
 import kineticnetwork.net.chat.config.GetItems;
 import kineticnetwork.net.chat.config.config;
+import kineticnetwork.net.chat.listener.onAnvilUse;
 import kineticnetwork.net.chat.listener.onPlayerChat;
 import ninja.leaping.configurate.ConfigurationNode;
 import org.slf4j.Logger;
@@ -51,6 +52,7 @@ public class Chat {
         rootDir = new File(defaultConfigDir, "chat-filter");
         this.logger.info( Prefix+" Registering event's");
         Sponge.getEventManager().registerListeners(this, new onPlayerChat());
+        Sponge.getEventManager().registerListeners(this, new onAnvilUse());
         config.init(rootDir);
         this.logger.info( Prefix+" Done!");
     }
