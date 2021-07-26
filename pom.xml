@@ -9,7 +9,7 @@
     <version>3.0</version>
     <packaging>jar</packaging>
 
-    <name>ChatFilter-Sponage-7.3.0</name>
+    <name>ChatFilter-Sponge-7.3.0</name>
 
     <description>Filter's chat messages</description>
     <properties>
