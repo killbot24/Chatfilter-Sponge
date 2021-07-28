@@ -13,7 +13,7 @@ public class onPlayerJoin {
     @Listener
     public void onPlayerJoin(ClientConnectionEvent.Join event, @Root Player player) {
         if (player.hasPermission("cf.base")){
-            notify.listMutedPlayersToPlayer(fp.getPlayerList(),player);
+            notify.listMutedPlayersToPlayer(fp.getPlayerList(),player,fp.getFlagedlist());
         }
 
     }

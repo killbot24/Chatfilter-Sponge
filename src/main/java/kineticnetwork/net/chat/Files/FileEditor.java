@@ -19,6 +19,7 @@ import java.util.Scanner;
  */
 public class FileEditor extends Chat {
     private String[] mutes;
+    private String[] flaged;
     FilePrep fp = new FilePrep();
     private Player Staff = null; //For remove mute optional input
 
@@ -40,6 +41,24 @@ public class FileEditor extends Chat {
             mutes = new String[lmutes.size()];
             mutes = (String[]) lmutes.toArray(mutes);
             Chat.mutes = mutes;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        myReader.close();
+    }
+    public void getFlaged() throws IOException { //Gets flaged players
+        File file = fp.getFlagFile();
+        Scanner myReader = null;
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        try {
+            myReader = new Scanner(file);
+            List<?> lmutes;
+            lmutes = Files.readAllLines(file.toPath());
+            flaged = new String[lmutes.size()];
+            flaged  = (String[]) lmutes.toArray(flaged);
+            Chat.flaged  = flaged ;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -88,8 +107,33 @@ public class FileEditor extends Chat {
             if (Staff == null) {
                 getLogger().info(player + " is no longer muted");
             } else {
-                //Todo Move to notify
                 Text message = Text.of(TextColors.RED, TranslatableText.builder(player + " is un muted"));
+                Staff.sendMessage(message);
+            }
+            this.reloadMutes();
+        }
+
+    }
+    public void unFlagPlayer(String player, Player Staff) throws IOException {
+        getFlaged();
+
+        if (Arrays.asList(Chat.flaged).contains(player)) {
+            Text message = Text.of(TextColors.RED, TranslatableText.builder(player + " is not Flagged"));
+            Staff.sendMessage(message);
+
+        } else {
+            File file = fp.getFlagFile();
+            FileWriter fw = new FileWriter(file);
+
+            Arrays.asList(Chat.flaged).remove(player);
+            for (int i = 0; i < Chat.flaged.length; ++i) {
+                fw.write(Chat.flaged[i]);
+            }
+            if (Staff == null) {
+                getLogger().info(player + " is no longer Flagged");
+            } else {
+
+                Text message = Text.of(TextColors.RED, TranslatableText.builder(player + " is un Flagged"));
                 Staff.sendMessage(message);
             }
             this.reloadMutes();

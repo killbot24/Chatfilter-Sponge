@@ -54,12 +54,14 @@ public class TextCheck {
         reports.mutePlayer(player);// mutes player
         notify.imformPlayerIsMuted(player, value);// sends mute message
         notify.imformStaff(player,input,key,"Chat",value);
+        Chat.getLogger().info(Chat.Prefix+": "+player+" Has been muted for :"+key+" \n Message "+input+" Reason: "+value);
         return true;
     }
     public boolean possibleflag(Player player, String key, String value, String source, String extra, String input) throws IOException { //Used for chat if word is contained with in another word
         reports.report(player.getName(),key, input, source, value);// adds report
         reports.flagPlayer(player);
         notify.imformStaffPossibleflag(player,input,key,"Chat",value);
+        Chat.getLogger().info(Chat.Prefix+": "+player+" Has been flagged :"+key+" \n Message "+input+" Reason: "+value);
         return true;
     }
     }
