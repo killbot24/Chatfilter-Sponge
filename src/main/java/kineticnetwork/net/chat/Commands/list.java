@@ -29,11 +29,11 @@ public class list implements CommandExecutor
             e.printStackTrace();
         }
         if (commandSource instanceof ConsoleSource) {
-            notify.listMutedPlayersToConsole(fp.getPlayerList());//Outputs player mutes to console
+            notify.listMutedPlayersToConsole(fp.getPlayerList(),fp.getFlagedlist());//Outputs player mutes to console
         }
         if (commandSource instanceof Player) {
             Player player = (Player) commandSource;
-            notify.listMutedPlayersToPlayer(fp.getPlayerList(), player);
+            notify.listMutedPlayersToPlayer(fp.getPlayerList(), player,fp.getFlagedlist());
         }
         return CommandResult.success();
     }

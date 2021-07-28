@@ -36,7 +36,7 @@ public class Chat {
     public static File rootDir;
     public static Map<String, String> Blacklisted = new HashMap<String, String>();
     public static String[] mutes;
-    public static String[] Watched;
+    public static String[] flaged;
     public static String URL;
     public ConfigurationNode rootNode;
     public static String Prefix= "[Chatfilter]";
@@ -69,6 +69,7 @@ public class Chat {
            register.registerCommands();
         FileEditor files=new FileEditor();
         files.reloadMutes();
+        files.getFlaged();
         this.logger.info(Prefix+ "Ah another fine day,Chatfilter is ready to work!");
     }
 

@@ -4,7 +4,6 @@ import kineticnetwork.net.chat.Chat;
 import org.spongepowered.api.entity.living.player.Player;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,5 +29,8 @@ public class FilePrep {
 
     public List<String> getPlayerList() { // lists active mutes to staff on login
         return Arrays.asList(Chat.mutes);
+    }
+    public List<String> getFlagedlist() { // lists active mutes to staff on login
+        return Arrays.asList(Chat.flaged);
     }
 }
