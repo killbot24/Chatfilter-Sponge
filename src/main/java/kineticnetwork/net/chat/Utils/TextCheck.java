@@ -29,12 +29,7 @@ public class TextCheck {
             while (hmIterator.hasNext()) {
                 Map.Entry mapElement = (Map.Entry) hmIterator.next();
                 if (sepword[i].contains((CharSequence) mapElement.getKey())) {
-                   if (source == "Anvil"&&sepword[i].equals(mapElement.getKey())) { // source is not chat
-                        //  ChatFilter.getInstance().getLogger().info("Hit check");
-                        mutePlayer(player, mapElement.getKey().toString(), mapElement.getValue().toString(), source, extra, input);
-                        return true;
-                    }
-                    if (sepword[i].equals(mapElement.getKey())) { // 100% is blacklisted
+                   if (sepword[i].equals(mapElement.getKey())) { // 100% is blacklisted
                         mutePlayer(player, mapElement.getKey().toString(), mapElement.getValue().toString(), source, extra, input);
                         return true;
                     } else {// Maybe...
