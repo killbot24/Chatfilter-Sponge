@@ -24,7 +24,7 @@ public class reload  extends Chat implements CommandExecutor {
         config.load();
 
 
-        String message = config.getNode("Mute").getValue().toString();
+        String message = config.getNode("Blocked").getValue().toString();
 
         Function<Object, String> stringTransformer = new Function<Object, String>() {
             public String apply(Object input) {
@@ -36,8 +36,7 @@ public class reload  extends Chat implements CommandExecutor {
             }
         };
         //  List<String> a = rootNode.getNode("Blocked").getList(stringTransformer);
-        String blacklistinput = (String) config.getNode("Blocked").getValue();
-        String whitelistinput = (String) config.getNode("Whitelist").getValue();
+        String blacklistinput = String.valueOf(config.getNode("Blocked").getValue().toString());
 
         /* delimiter */
         String delimiter = ",";
