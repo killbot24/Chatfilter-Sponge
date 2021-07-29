@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.reflect.TypeToken;
+import kineticnetwork.net.chat.Chat;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
@@ -46,8 +47,6 @@ public class config {
         }
         catch (IOException e)
         {
-
-            e.printStackTrace();
             return;
         }
         final TypeToken<List> token = new TypeToken<List>() {};
