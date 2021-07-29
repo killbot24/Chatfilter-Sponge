@@ -36,14 +36,12 @@ public class Notify extends Chat {
         if (type=="Anvil"){
             Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.RED, "Chat Filter", TextColors.DARK_GRAY, "]- ", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to name a item: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
             Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
-
-        }
-        else if (type=="Chat") {
-            Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.RED, "Chat Filter", TextColors.DARK_GRAY, "]- ", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to say: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
-            Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
         }
         else if (type=="Sign") {
             Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.RED, "Chat Filter", TextColors.DARK_GRAY, "]- ", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to put on a sign: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
+            Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
+        }else {
+            Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.RED, "Chat Filter", TextColors.DARK_GRAY, "]- ", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to say: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
             Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
         }
         // set text for message
@@ -51,10 +49,15 @@ public class Notify extends Chat {
     }
 
     public void imformStaffPossibleflag(Player player, String message, String blocked, String type, String reason) {
-        if (type != "Chat") {
-        } else if (type == "Sign") {
+        if (type == "Sign") {
             Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.AQUA, "Chat Filter", TextColors.DARK_GRAY, "]\n", TextColors.BLUE, "POSSIBLE FLAG \n", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to put on a sign: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
             Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
+
+        }
+        if (type == "Anvil") {
+            Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.AQUA, "Chat Filter", TextColors.DARK_GRAY, "]\n", TextColors.BLUE, "POSSIBLE FLAG \n", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to put on a item: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
+            Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
+
         } else {
             Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.AQUA, "Chat Filter", TextColors.DARK_GRAY, "]\n", TextColors.BLUE, "POSSIBLE FLAG \n", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to say: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
             // set text for message
@@ -81,7 +84,7 @@ public class Notify extends Chat {
         Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.RED, "Chat Filter", TextColors.DARK_GRAY, "]- ", TextColors.DARK_GRAY, "\n[", TextColors.RED, "Anvil Alert", TextColors.DARK_GRAY, "]- ", TextColors.GRAY, player.getName(), TextColors.DARK_GRAY," [", TextColors.RED, "Message", TextColors.DARK_GRAY, "]-",TextColors.GRAY, TranslatableText.builder(message).toText());
         // set text for message
         Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
-    Chat.getLogger().info(Chat.Prefix+"[Chatfilter]-[Anvil Alert] "+player+" Has named a item called "+message);
+    Chat.getLogger().info(Chat.Prefix+"[Chatfilter]-[Anvil Alert] "+player.getName()+" Has named a item called "+message);
     }
 
     public void listInfractionsConsole(List<String> Infractions, String Suspect) {
