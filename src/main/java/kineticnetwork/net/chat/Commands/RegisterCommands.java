@@ -32,7 +32,7 @@ public class RegisterCommands {
                 .permission("ct.base")
                 .arguments(
                         GenericArguments.onlyOne(GenericArguments.string(Text.of("Player"))))
-                .executor(new unmute())
+                .executor(new Unflag())
                 .build();
 
         CommandSpec check = CommandSpec.builder()

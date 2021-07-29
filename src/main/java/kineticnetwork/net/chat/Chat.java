@@ -46,7 +46,7 @@ public class Chat {
     @ConfigDir(sharedRoot = true)
     private File defaultConfigDir;
     @Listener
-    public void onInit(GameInitializationEvent event) throws IOException
+    public void onInit(GameInitializationEvent event)
     {
         plugin = this;
         this.logger.info(Prefix+" Starting");
@@ -60,6 +60,7 @@ public class Chat {
     }
     @Listener
     public void onServerStart(GameStartedServerEvent event) throws IOException {
+
         config.load();// loads config
         RegisterCommands register =new RegisterCommands();
         GetItems words =new GetItems();

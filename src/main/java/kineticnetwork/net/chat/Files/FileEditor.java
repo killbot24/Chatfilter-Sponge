@@ -17,7 +17,7 @@ import java.util.Scanner;
 /**
  * Created by tjbur on 06/06/2020.
  */
-public class FileEditor extends Chat {
+public class FileEditor {
     private String[] mutes;
     private String[] flaged;
     FilePrep fp = new FilePrep();
@@ -73,7 +73,7 @@ public class FileEditor extends Chat {
             out.close();
             this.reloadMutes();
         } catch (Exception e) {
-            this.getLogger().info("[Warning] Issue writing file");
+            Chat.getLogger().info("[Warning] Issue writing file");
         }
     }
     public void flagPlayer(Player player) throws IOException {
@@ -84,8 +84,9 @@ public class FileEditor extends Chat {
             out.close();
             this.reloadMutes();
         } catch (Exception e) {
-            this.getLogger().info("[Warning] Issue writing file");
+            Chat.getLogger().info("[Warning] Issue writing file");
         }
+        this.getFlaged();
     }
 
     public void unmutePlayer(String player, Player Staff) throws IOException {
@@ -105,7 +106,7 @@ public class FileEditor extends Chat {
                 fw.write(Chat.mutes[i]);
             }
             if (Staff == null) {
-                getLogger().info(player + " is no longer muted");
+                Chat.getLogger().info(player + " is no longer muted");
             } else {
                 Text message = Text.of(TextColors.RED, TranslatableText.builder(player + " is un muted"));
                 Staff.sendMessage(message);
@@ -130,27 +131,27 @@ public class FileEditor extends Chat {
                 fw.write(Chat.flaged[i]);
             }
             if (Staff == null) {
-                getLogger().info(player + " is no longer Flagged");
+                Chat.getLogger().info(player + " is no longer Flagged");
             } else {
 
                 Text message = Text.of(TextColors.RED, TranslatableText.builder(player + " is un Flagged"));
                 Staff.sendMessage(message);
             }
-            this.reloadMutes();
+            this.getFlaged();
         }
 
     }
 
     public void report(String player, String trigger, String warning, String Type, String reason) throws IOException {
         createfolder();
-        File file = new File(getfile().getAbsoluteFile() + "/Warnings", player + ".yml");
+        File file = new File(Chat.getInstance().getfile().getAbsoluteFile() + "/Warnings", player + ".yml");
         PrintWriter out = new PrintWriter(new FileWriter(file, true));
         String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e1) {
-                getLogger().info(player + "'s data file could not be created!");
+                Chat.getLogger().info(player + "'s data file could not be created!");
                 e1.printStackTrace();
             }
         } else {
@@ -158,27 +159,27 @@ public class FileEditor extends Chat {
                 out.write("\n" + timeStamp + "[Trigger word]:" + trigger + " [Warning type]: " + Type + " [Message]: " + warning + " [Reason]: " + reason);
                 out.close();
             } catch (Exception e2) {
-                this.getLogger().info("[Warning] Issue writing file");
+                Chat.getLogger().info("[Warning] Issue writing file");
             }
         }
     }
 
     public void createfolder() {
-        final File warningfolder = new File(getfile().getAbsoluteFile(), "Warnings");
+        final File warningfolder = new File(Chat.getInstance().getfile().getAbsoluteFile(), "Warnings");
         if (!warningfolder.exists()) {
             warningfolder.mkdir();
         }
     }
 
     public void logunmute(String player, String mute) throws IOException {
-        final File file = new File(getfile().getAbsoluteFile(), "log.yml");
+        final File file = new File(Chat.getInstance().getfile().getAbsoluteFile(), "log.yml");
         final PrintWriter out = new PrintWriter(new FileWriter(file, true));
         final String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e1) {
-                getLogger().info("[Chat filter]: log file error");
+                Chat.getLogger().info("[Chat filter]: log file error");
                 e1.printStackTrace();
             }
         }
@@ -187,7 +188,7 @@ public class FileEditor extends Chat {
             out.close();
 
         } catch (Exception e) {
-            this.getLogger().info("[Warning] Issue writing file");
+            Chat.getLogger().info("[Warning] Issue writing file");
         }
     }
 }

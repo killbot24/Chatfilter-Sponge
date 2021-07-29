@@ -33,7 +33,7 @@ public class onPlayerChat {
         if (Arrays.asList(Chat.mutes).contains(player.getName())) {
             event.setMessageCancelled(true);
             not.imformPlayerIsMuteda(player);
-
+        return;
         }
 
         if (check.checkmessage(message, player, "Chat", "null")) {// if checkchat finds word blacklisted

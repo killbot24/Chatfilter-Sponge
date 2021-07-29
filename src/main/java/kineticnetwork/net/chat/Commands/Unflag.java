@@ -24,12 +24,12 @@ public class Unflag implements CommandExecutor {
         try {
             if (commandSource instanceof ConsoleSource) {
                 store.unFlagPlayer(player,null);
-                store.logunmute("console", player);
+
             }
             if (commandSource instanceof Player) {
                 Player sender = (Player) commandSource;
                 store.unFlagPlayer(player, sender);
-                store.logunmute(sender.getName(), player);
+
             }
 
 
