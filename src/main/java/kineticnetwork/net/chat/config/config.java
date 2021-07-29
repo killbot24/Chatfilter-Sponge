@@ -1,4 +1,5 @@
 package kineticnetwork.net.chat.config;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,62 +25,43 @@ public class config {
     private static CommentedConfigurationNode config;
 
 
-
-    public static void init(File rootDir)
-    {
+    public static void init(File rootDir) {
         configFile = new File(rootDir, "config.conf");
         configManager = HoconConfigurationLoader.builder().setPath(configFile.toPath()).build();
 
     }
 
-    public static void load()
-    {
-        try
-        {
-            if (!configFile.exists())
-            {
+    public static void load() {
+        try {
+            if (!configFile.exists()) {
                 configFile.getParentFile().mkdirs();
                 configFile.createNewFile();
                 config = configManager.load();
                 configManager.save(config);
+                List list = new ArrayList<>();
+
+                // check integrity
+                list.add("bob:John");
+                list.add("john:dave");
+
+                config.getNode("Blocked").setComment("Blocked word's and reason format to follow is \n Penguin:is flipper boi");
+                config.getNode("Blocked").setValue(list);
+
+                config.getNode("URL").setComment("Link to appeal");
+                config.getNode("URL").setValue("Url");
+                save();
             }
             config = configManager.load();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             return;
         }
-        final TypeToken<List> token = new TypeToken<List>() {};
-        List list = new ArrayList<>();
-
-        // check integrity
-        list.add("bob:John");list.add("john:dave");
-
-        config.getNode("Blocked").setComment("Blocked word's and reason format to follow is \n Penguin:is flipper boi");
-        config.getNode("Blocked").setValue(list);
-
-        config.getNode("URL").setComment("Link to appeal");
-        config.getNode("URL").setValue("Url");
-
-
-
-
-        save();
     }
 
-    public static void save()
-    {
-        try
-        {
+    public static void save() throws IOException {
             configManager.save(config);
-        }
-        catch (IOException e)
-        {
-
-        }
     }
-    public static CommentedConfigurationNode getNode(String... path)
-    {
+
+    public static CommentedConfigurationNode getNode(String... path) {
         return config.getNode((Object[]) path);
     }
 

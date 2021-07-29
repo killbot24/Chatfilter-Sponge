@@ -20,21 +20,7 @@ public class reload  extends Chat implements CommandExecutor {
     private String[] Blocked;
     @Override
     public CommandResult execute(CommandSource commandSource, CommandContext commandContext) throws CommandException {
-        Boolean bla = true;// to stop error
-        config.load();
 
-
-        String message = config.getNode("Blocked").getValue().toString();
-
-        Function<Object, String> stringTransformer = new Function<Object, String>() {
-            public String apply(Object input) {
-                if (input instanceof String) {
-                    return (String) input;
-                } else {
-                    return null;
-                }
-            }
-        };
         //  List<String> a = rootNode.getNode("Blocked").getList(stringTransformer);
         String blacklistinput = String.valueOf(config.getNode("Blocked").getValue().toString());
 
