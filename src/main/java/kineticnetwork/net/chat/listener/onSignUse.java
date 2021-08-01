@@ -36,6 +36,7 @@ public class onSignUse {
               //  Chat.getLogger().info(sign.getListValue().get().get(i).toPlain());
             if (check.checkmessage(sign.getListValue().get().get(i).toPlain(), player, "Sign", worldname+"-"+x+"-"+y+"-"+z)) {
                 event.setCancelled(true);
+                return;
             }
             }
         } catch (IOException e) {

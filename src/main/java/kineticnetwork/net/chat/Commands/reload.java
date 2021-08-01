@@ -20,17 +20,8 @@ public class reload  extends Chat implements CommandExecutor {
     private String[] Blocked;
     @Override
     public CommandResult execute(CommandSource commandSource, CommandContext commandContext) throws CommandException {
-
-        //  List<String> a = rootNode.getNode("Blocked").getList(stringTransformer);
-        String blacklistinput = String.valueOf(config.getNode("Blocked").getValue().toString());
-
-        /* delimiter */
-        String delimiter = ",";
-        String b = blacklistinput.replace("[", "");
-        String c = b.replace("]", "");
-        String d = c.replace(" ", "");
-        /* given string will be split by the argument delimiter provided. */
-        // dat.setBlocked(d.split(delimiter));
+        
+        config.load();
         FileEditor store = new FileEditor();
         try {
             store.reloadMutes();

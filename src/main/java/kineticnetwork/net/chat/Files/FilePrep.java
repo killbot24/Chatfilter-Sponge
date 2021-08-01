@@ -11,17 +11,17 @@ import java.util.List;
 public class FilePrep{
 
     public File getUserFile(String suspect) {
-        File file = new File(Chat.getInstance().getfile().getAbsoluteFile() + "/Warnings", suspect + ".yml");
+        File file = new File(Chat.rootDir + "/Warnings", suspect + ".yml");
         return file;
     }
 
     public File getMuteFile() {
-        File file = new File(Chat.getInstance().getfile().getAbsoluteFile() + "Active-mutes.yml");
+        File file = new File(Chat.rootDir + "/Active-mutes.yml");
         return file;
     }
 
     public File getFlagFile() {
-        File file = new File(Chat.getInstance().getfile().getAbsoluteFile() + "Flaged.yml");
+        File file = new File(Chat.rootDir + "/Flagged.yml");
         return file;
     }
 

@@ -52,12 +52,12 @@ public class Notify extends Chat {
         if (type == "Sign") {
             Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.AQUA, "Chat Filter", TextColors.DARK_GRAY, "]\n", TextColors.BLUE, "POSSIBLE FLAG \n", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to put on a sign: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
             Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
-
+            return;
         }
         if (type == "Anvil") {
             Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.AQUA, "Chat Filter", TextColors.DARK_GRAY, "]\n", TextColors.BLUE, "POSSIBLE FLAG \n", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to put on a item: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
             Sponge.getServer().getOnlinePlayers().stream().filter(pl -> pl.hasPermission("ct.base")).forEach(pl -> pl.sendMessage(text));   // messages all staff online
-
+            return;
         } else {
             Text text = Text.of(TextColors.DARK_GRAY, "[", TextColors.AQUA, "Chat Filter", TextColors.DARK_GRAY, "]\n", TextColors.BLUE, "POSSIBLE FLAG \n", TextColors.GRAY, player.getName(), TextColors.RED, " Has attempted to say: ", TextColors.GRAY, TranslatableText.builder(message).toText(), "\n", TextColors.DARK_GRAY, TextColors.RED, "Trigger", TextColors.DARK_GRAY, "]-", TextColors.GRAY, blocked, "\n", TextColors.DARK_GRAY, "[", TextColors.RED, "Reason", TextColors.DARK_GRAY, "]", reason);
             // set text for message

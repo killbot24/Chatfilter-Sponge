@@ -71,7 +71,6 @@ public class Chat {
         FileEditor files=new FileEditor();
         files.reloadMutes();
         files.getFlaged();
-        this.logger.info(Prefix+ "Ah another fine day,Chatfilter is ready to work!");
     }
 
     public static Chat getInstance()

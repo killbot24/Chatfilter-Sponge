@@ -20,7 +20,7 @@ public class Unflag implements CommandExecutor {
 
 
         Optional<User> user = commandContext.<User>getOne("Player");
-        String player = String.valueOf(user.get());// gets player
+        String player = String.valueOf(user.get()).toLowerCase();// gets player
         try {
             if (commandSource instanceof ConsoleSource) {
                 store.unFlagPlayer(player,null);
