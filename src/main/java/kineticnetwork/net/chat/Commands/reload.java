@@ -2,6 +2,7 @@ package kineticnetwork.net.chat.Commands;
 
 import kineticnetwork.net.chat.*;
 import kineticnetwork.net.chat.Files.FileEditor;
+import kineticnetwork.net.chat.config.GetItems;
 import kineticnetwork.net.chat.config.config;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -20,8 +21,10 @@ public class reload  extends Chat implements CommandExecutor {
     private String[] Blocked;
     @Override
     public CommandResult execute(CommandSource commandSource, CommandContext commandContext) throws CommandException {
-        
+
         config.load();
+        GetItems words =new GetItems();
+        words.getItems();
         FileEditor store = new FileEditor();
         try {
             store.reloadMutes();
