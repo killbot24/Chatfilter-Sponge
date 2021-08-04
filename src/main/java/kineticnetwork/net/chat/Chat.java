@@ -37,7 +37,7 @@ public class Chat {
     public static Map<String, String> Blacklisted = new HashMap<String, String>();
     public static String[] mutes;
     public static String[] flaged;
-    public static String URL;
+    public static @org.checkerframework.checker.nullness.qual.Nullable Object URL;
     public ConfigurationNode rootNode;
     public static String Prefix= "[Chatfilter]";
     @Inject
@@ -65,7 +65,7 @@ public class Chat {
         RegisterCommands register =new RegisterCommands();
         GetItems words =new GetItems();
             //Get blocked items + Url
-           words.getItems();
+          // words.getItems();
            //Register Commands
            register.registerCommands();
         FileEditor files=new FileEditor();

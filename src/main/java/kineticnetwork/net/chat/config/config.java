@@ -5,16 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.reflect.TypeToken;
 import kineticnetwork.net.chat.Chat;
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
-import org.spongepowered.api.text.format.TextStyles;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Created by tjbur on 01/06/2020.
@@ -51,9 +46,32 @@ public class config {
                 config.getNode("URL").setValue("Url");
                 save();
             }
+
             config = configManager.load();
         } catch (IOException e) {
             return;
+        }
+        String[] split = new String[0];
+        try {
+            @Nullable Object message = config.getNode("URL").getValue();
+            Chat.URL = message.toString();// Website URL
+
+            String input = String.valueOf(config.getNode("Blocked").getValue());
+            Chat.getLogger().info(input);
+            input = input.replace("[", "");
+            input = input.replace("]", "");
+            // input = input.replace(" ", "");
+            split = input.split(",");
+            for (int i = 0; i < split.length; i++) {//Take config split by , add into list
+                String[] item = split[i].split(":");
+                Chat.Blacklisted.put(item[0], item[1]);
+                Chat.getLogger().info(Chat.getInstance().Prefix + " " + item[0] + "," + item[1]);
+            }
+        } catch (Exception e) {
+            Chat.getLogger().info(Chat.Prefix + " Issue in config formatting \n defaulting to Original List ");
+            e.printStackTrace();
+            Chat.Blacklisted.put("fag","Homophobic Slur");
+            Chat.Blacklisted.put("faggot","Homophobic Slur");
         }
     }
 

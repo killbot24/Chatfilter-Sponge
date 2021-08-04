@@ -23,8 +23,7 @@ public class reload  extends Chat implements CommandExecutor {
     public CommandResult execute(CommandSource commandSource, CommandContext commandContext) throws CommandException {
 
         config.load();
-        GetItems words =new GetItems();
-        words.getItems();
+
         FileEditor store = new FileEditor();
         try {
             store.reloadMutes();
