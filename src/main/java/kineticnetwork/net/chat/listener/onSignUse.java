@@ -30,15 +30,17 @@ public class onSignUse {
         int z = event.getTargetTile().getLocation().getBlockZ();
         Location<World> location = world.getLocation(x, y, z);
         String signdata= sign.getListValue().get().get(0).toPlain()+"-"+sign.getListValue().get().get(1).toPlain()+"-"+sign.getListValue().get().get(2).toPlain()+"-"+sign.getListValue().get().get(3).toPlain();
-        notify.signAlert(signdata,player,worldname+","+x+","+y+","+z);
+        notify.signAlert(signdata,player,worldname+","+x+" ,"+y+" ,"+z);
         try {
+            boolean clear;
             for (int i=0;i<4;i++){
               //  Chat.getLogger().info(sign.getListValue().get().get(i).toPlain());
-            if (check.checkmessage(sign.getListValue().get().get(i).toPlain(), player, "Sign", worldname+"-"+x+"-"+y+"-"+z)) {
+            if (check.checkmessage(sign.getListValue().get().get(i).toPlain(), player, "Sign", worldname+"-"+x+"-"+y+"-"+z)>0) {
                 event.setCancelled(true);
                 return;
             }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

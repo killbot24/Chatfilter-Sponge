@@ -12,6 +12,8 @@ import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.message.MessageChannelEvent;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.TranslatableText;
+import org.spongepowered.api.text.channel.MessageChannel;
+import org.spongepowered.api.text.channel.MessageReceiver;
 import org.spongepowered.api.text.format.TextColors;
 
 import java.io.IOException;
@@ -35,9 +37,16 @@ public class onPlayerChat {
             not.imformPlayerIsMuteda(player);
         return;
         }
-
-        if (check.checkmessage(message, player, "Chat", "null")) {// if checkchat finds word blacklisted
+        int value=check.checkmessage(message, player, "Chat", "null");
+       // Chat.getLogger().info(value+" Value");
+        if (value==2) {// if checkchat finds word blacklisted
             event.setMessageCancelled(true);
+
+
+        }else if (value==1){
+            event.setChannel( MessageChannel.fixed(player));
+
+
 
         }
     }

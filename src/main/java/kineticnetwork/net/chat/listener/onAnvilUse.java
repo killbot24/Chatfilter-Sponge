@@ -60,7 +60,7 @@ public class onAnvilUse {
                             }
                             notify.imformStaffAnvil(player, itemNamePlain);
                             try {
-                                if (check.checkmessage(itemNamePlain, player, "Anvil", "null")) {
+                                if (check.checkmessage(itemNamePlain, player, "Anvil", "null")>0) {
                                     event.setCancelled(true);
                                 }
                             } catch (IOException e) {
