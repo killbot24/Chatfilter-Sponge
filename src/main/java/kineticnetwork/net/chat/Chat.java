@@ -1,8 +1,10 @@
 package kineticnetwork.net.chat;
 
 import com.google.inject.Inject;
+import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import kineticnetwork.net.chat.Commands.*;
 import kineticnetwork.net.chat.Files.FileEditor;
+import kineticnetwork.net.chat.config.ConfigManager;
 import kineticnetwork.net.chat.config.GetItems;
 import kineticnetwork.net.chat.config.config;
 import kineticnetwork.net.chat.listener.onAnvilUse;
@@ -12,6 +14,7 @@ import ninja.leaping.configurate.ConfigurationNode;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.action.SleepingEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
@@ -38,7 +41,6 @@ public class Chat {
     public static String[] mutes;
     public static String[] flaged;
     public static @org.checkerframework.checker.nullness.qual.Nullable Object URL;
-    public ConfigurationNode rootNode;
     public static String Prefix= "[Chatfilter]";
     @Inject
     public Logger logger;
@@ -64,10 +66,10 @@ public class Chat {
         config.load();// loads config
         RegisterCommands register =new RegisterCommands();
         GetItems words =new GetItems();
-            //Get blocked items + Url
-          // words.getItems();
-           //Register Commands
-           register.registerCommands();
+        //Get blocked items + Url
+        // words.getItems();
+        //Register Commands
+        register.registerCommands();
         FileEditor files=new FileEditor();
         files.reloadMutes();
         files.getFlaged();

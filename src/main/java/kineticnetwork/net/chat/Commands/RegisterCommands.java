@@ -28,7 +28,7 @@ public class RegisterCommands {
                 .executor(new unmute())
                 .build();
         CommandSpec UnFlag = CommandSpec.builder()
-                .description(Text.of("unFlags player"))
+                .description(Text.of("unwatch player"))
                 .permission("ct.base")
                 .arguments(
                         GenericArguments.onlyOne(GenericArguments.string(Text.of("Player"))))
@@ -47,14 +47,14 @@ public class RegisterCommands {
                 .description(Text.of("All chat tools commands"))
                 .child(unmute,"unmute") // links to command unmute
                 .child(reload,"reload")
-                .child(UnFlag,"unflag")
+                .child(UnFlag,"unwatch")
                 .child(list,"list")
                 .child(check,"check")
                 .build();
 
         Sponge.getCommandManager().register(Chat.plugin, reload, "chatfilterreload");
         Sponge.getCommandManager().register(Chat.plugin, unmute, "chatfilterunmute");
-        Sponge.getCommandManager().register(Chat.plugin, UnFlag, "chatfilterunflag");
+        Sponge.getCommandManager().register(Chat.plugin, UnFlag, "chatfilterunwatch");
         Sponge.getCommandManager().register(Chat.plugin, Main, "chatfilter");
         Sponge.getCommandManager().register(Chat.plugin, list, "chatfilterlist");
         Sponge.getCommandManager().register(Chat.plugin, check, "chatfiltercheck");
