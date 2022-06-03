@@ -40,7 +40,7 @@ public class Chat {
     public static Map<String, String> Blacklisted = new HashMap<String, String>();
     public static String[] mutes;
     public static String[] flaged;
-    public static @org.checkerframework.checker.nullness.qual.Nullable Object URL;
+    public static  Object URL;
     public static String Prefix= "[Chatfilter]";
     @Inject
     public Logger logger;

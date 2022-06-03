@@ -6,7 +6,7 @@
 
     <groupId>kineticnetwork.net.Chatfilter</groupId>
     <artifactId>Chat</artifactId>
-    <version>3.0</version>
+    <version>3.1</version>
     <packaging>jar</packaging>
 
     <name>ChatFilter-Sponge-7.3.0</name>
