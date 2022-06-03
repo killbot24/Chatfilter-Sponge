@@ -99,8 +99,8 @@ public class Notify extends Chat {
     public void staff(Player player, String message, String trigger, String reason, String source, String extra, boolean confirmed) {
         Text output=Text.of("Shit");
                 if (source == "Chat") {
-                    if (reason=="Higher Action"){
-                        output = Text.of(TextColors.DARK_GRAY , "[" , TextColors.RED , "Chat Filter" , TextColors.DARK_GRAY , "]:",TextColors.WHITE  , player.getName() , TextColors.RED , " Has attempted to say: " , TextColors.GRAY , message , " " , TextColors.DARK_GRAY , "\n[" , TextColors.RED + "Trigger word" , TextColors.DARK_GRAY , "]:" , TextColors.WHITE , trigger , TextColors.DARK_GRAY , "\n[" , TextColors.RED , "Contact Higher Staff Immediately" , TextColors.DARK_GRAY , "]:");
+                    if (reason.equalsIgnoreCase("blacklisted-term")){
+                        output = Text.of(TextColors.DARK_GRAY , "[" , TextColors.RED , "Chat Filter" , TextColors.DARK_GRAY , "]:",TextColors.WHITE  , player.getName() , TextColors.RED , " Has attempted to say: " , TextColors.GRAY , "Blacklisted-Term", " " , TextColors.DARK_GRAY , "\n[" , TextColors.RED , "Trigger word" , TextColors.DARK_GRAY , "]:" , TextColors.WHITE , "Blacklisted-Term" , TextColors.DARK_GRAY , "\n[" , TextColors.RED , "Contact Higher Staff Immediately" , TextColors.DARK_GRAY , "]:");
                         getLogger().info("[Chat Filter]:" , player.getName() , " Has attempted to say " , message);
                     }else if (confirmed == false) {
                         output = Text.of(TextColors.DARK_GRAY , "[" , TextColors.BLUE , "POSSIBLE FLAG" , TextColors.DARK_GRAY , "]:\n" , TextColors.DARK_GRAY , "[" , TextColors.RED , "Chat Filter" , TextColors.DARK_GRAY ,"]" , TextColors.WHITE  , player.getName() , TextColors.RED , " Has attempted to say: " , TextColors.GRAY , message , " " , TextColors.DARK_GRAY , "\n[", TextColors.RED , "Trigger word" , TextColors.DARK_GRAY , "]:" , TextColors.WHITE , trigger , TextColors.DARK_GRAY , "\n[" , TextColors.RED , "Reason" , TextColors.DARK_GRAY , "]:" , TextColors.WHITE , reason);

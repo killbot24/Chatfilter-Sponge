@@ -41,10 +41,11 @@ public class onPlayerChat {
        // Chat.getLogger().info(value+" Value");
         if (value==2) {// if checkchat finds word blacklisted
             event.setMessageCancelled(true);
+            event.setChannel(MessageChannel.TO_CONSOLE);
 
 
         }else if (value==1){
-            event.setChannel( MessageChannel.fixed(player));
+            event.setChannel(MessageChannel.fixed(player));
 
 
 
