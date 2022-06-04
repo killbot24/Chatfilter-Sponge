@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Chatfilter-Sponage-7.3.0" />
+        <module name="Chatfilter-Sponge-7.3.0" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Chatfilter-Sponage-7.3.0" target="1.8" />
+      <module name="Chatfilter-Sponge-7.3.0" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
