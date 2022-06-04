@@ -42,10 +42,10 @@ import static kineticnetwork.net.chat.Chat.getLogger;
 
                  List list = new ArrayList<>();
                  // check integrity
-                 list.add("bob:John");
-                 list.add("john:dave");
+                 list.add("bob=John");
+                 list.add("john=dave");
 
-                 config.getNode("Blocked").setComment("Blocked word's and reason format to follow is \n Penguin:is flipper boi");
+                 config.getNode("Blocked").setComment("Blocked word's and reason format to follow is \n Penguin;is flipper boi \n its ; instead of : for log4j issue");
                  config.getNode("Blocked").setValue(list);
 
                  config.getNode("URL").setComment("Link to appeal");
@@ -72,7 +72,7 @@ import static kineticnetwork.net.chat.Chat.getLogger;
              split = input.split(",");
 
              for (int i = 0; i < split.length; i++) {//Take config split by , add into list
-                 String[] item = split[i].split(":");
+                 String[] item = split[i].split("=");
                  Chat.Blacklisted.put(item[0], item[1]);
                  getLogger().info(Chat.getInstance().Prefix + " " + item[0] + "," + item[1]);
              }

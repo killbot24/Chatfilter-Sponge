@@ -36,7 +36,7 @@ public class reload  extends Chat implements CommandExecutor {
             split = input.split(",");
 
             for (int i = 0; i < split.length; i++) {//Take config split by , add into list
-                String[] item = split[i].split(":");
+                String[] item = split[i].split("=");
                 Chat.Blacklisted.put(item[0], item[1]);
                 Chat.getLogger().info(Chat.getInstance().Prefix + " " + item[0] + "," + item[1]);
             }
