@@ -81,14 +81,17 @@ public class TextCheck {
                 Map.Entry mapElement = (Map.Entry) hmIterator.next();
                 if (sepword[i].contains((CharSequence) mapElement.getKey())) {
                     if (source != "Chat") {
+                        Chat.getLogger().info("[Chatfilter] [Player]:"+player+" has attempted to say :"+mapElement.getKey().toString()+" soruce "+source);
                         mutePlayer(player, mapElement.getKey().toString(), mapElement.getValue().toString(), source, extra, input);
                         return 2;
                     }
                     if (sepword[i].equalsIgnoreCase(String.valueOf(mapElement.getKey()))) { // word is by it self blocked use method1
                         // notfiy.sendresponse(player, mapElement.getValue().toString());// sends mute message
+                        Chat.getLogger().info("[Chatfilter] [Player]:"+player+" has attempted to say :"+mapElement.getKey().toString()+" soruce "+source);
                         mutePlayer(player, mapElement.getKey().toString(), mapElement.getValue().toString(), source, extra, input);
                         return 2;
                     } else {
+                        Chat.getLogger().info("[Chatfilter](Possible flag) [Player]:"+player+" has attempted to say :"+mapElement.getKey().toString()+" soruce "+source);
                         possibleflag(player, mapElement.getKey().toString(), mapElement.getValue().toString(), source, extra, input);
                         return 1;
                     }
