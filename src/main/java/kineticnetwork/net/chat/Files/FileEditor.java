@@ -146,7 +146,7 @@ public class FileEditor {
         createfolder();
         File file = new File(Chat.getInstance().getfile().getAbsoluteFile() + "/Warnings", player + ".yml");
         PrintWriter out = new PrintWriter(new FileWriter(file, true));
-        String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
+        String timeStamp = new SimpleDateFormat("dd.MM.yyyy || HH:mm ").format(new Date());
         if (!file.exists()) {
             try {
                 file.createNewFile();
