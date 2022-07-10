@@ -1,6 +1,6 @@
 package kineticnetwork.net.chat.Utils;
 
-import com.sun.istack.internal.logging.Logger;
+
 import kineticnetwork.net.chat.Chat;
 import kineticnetwork.net.chat.Files.FileEditor;
 import kineticnetwork.net.chat.Files.FilePrep;
