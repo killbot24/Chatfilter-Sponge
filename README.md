@@ -1,5 +1,5 @@
 
-# Chatfilter-Spigot
+# Chatfilter-Sponge
 This program is designed to work on 7.3.0-7.4.8 sponge. It will monitor players useing  chat, Signs, Anvils, Messages. These will be either flaged as possible flag or a Mute.
 
 
